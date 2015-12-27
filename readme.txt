@@ -1,0 +1,1 @@
+http://docs.30c.org/djangobook2/chapter05/
