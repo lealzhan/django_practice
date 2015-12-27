@@ -69,6 +69,10 @@ def bootstrap(request):
     return render_to_response('bootstrap.html')
 
 
+from django.shortcuts import render_to_response
+def bootstrap_contact(request):
+    return render_to_response('bootstrap_contact.html')
+
 
 
 

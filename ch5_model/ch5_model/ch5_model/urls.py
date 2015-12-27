@@ -22,6 +22,7 @@ from books.views import books_update
 from books.views import image
 from books.views import template
 from books.views import bootstrap
+from books.views import bootstrap_contact
 
 
 urlpatterns = [
@@ -33,4 +34,5 @@ urlpatterns = [
                url(r'^image/', image),
                url(r'^template/', template),
                url(r'^bootstrap/', bootstrap),
+               url(r'^bootstrap_contact/', bootstrap_contact),
 ]
