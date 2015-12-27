@@ -64,7 +64,9 @@ from django.shortcuts import render_to_response
 def template(request):
     return render_to_response('template.html', {'number' : 2, 'string':'use this one'})
 
-
+from django.shortcuts import render_to_response
+def bootstrap(request):
+    return render_to_response('bootstrap.html')
 
 
 
