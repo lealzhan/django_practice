@@ -20,6 +20,7 @@ from books.views import books_write
 from books.views import books_read
 from books.views import books_update
 from books.views import image
+from books.views import template
 
 
 urlpatterns = [
@@ -29,4 +30,6 @@ urlpatterns = [
                url(r'^booksread/', books_read),
                url(r'^booksupdate/', books_update),
                url(r'^image/', image),
+               url(r'^template/', template),
+
 ]

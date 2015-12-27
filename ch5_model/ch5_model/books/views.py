@@ -59,4 +59,15 @@ def image(request):
     image_data = open(image_path + "image_0.png", "rb").read()
     return HttpResponse(image_data, content_type="image/png")  # no more mimetype
 
+# template
+from django.shortcuts import render_to_response
+def template(request):
+    return render_to_response('template.html', {'number' : 2, 'string':'use this one'})
+
+
+
+
+
+
+
 
