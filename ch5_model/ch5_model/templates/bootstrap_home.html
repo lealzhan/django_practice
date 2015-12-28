@@ -1,0 +1,17 @@
+{% extends "bootstrap_base.html" %}
+
+{% block head %}
+   <li  class="active"><a href="http://127.0.0.1:8000/bootstrap_home/">Home</a></li>
+   <li><a href="http://127.0.0.1:8000/bootstrap_feature/">Features</a></li>
+   <li><a href="http://127.0.0.1:8000/bootstrap_contact/">Contact</a></li>
+{% endblock %}
+
+{% block content %}
+  <h1 class="cover-heading">Home</h1>
+  <p class="lead">We change the world!</p>
+  <p class="lead"> we have {{put_number}} clients !</p>
+
+  <p class="lead">
+    <a href="#" class="btn btn-lg btn-default">Learn more</a>
+  </p>
+{% endblock %}

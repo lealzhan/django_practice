@@ -64,12 +64,20 @@ from django.shortcuts import render_to_response
 def template(request):
     return render_to_response('template.html', {'number' : 2, 'string':'use this one'})
 
-from django.shortcuts import render_to_response
 def bootstrap(request):
     return render_to_response('bootstrap.html')
 
-
-from django.shortcuts import render_to_response
+def bootstrap_home(request):
+    read_data = DatabaseTest.objects.all()
+    number=0
+    html=''
+    for x in read_data:
+        temp = str(number) + ': '+ str(x.id) + 'th in data base, name=' + x.name +'<br>'
+        html = html + temp
+        number = number+1
+    return render_to_response('bootstrap_home.html', {'put_number':number})
+def bootstrap_feature(request):
+    return render_to_response('bootstrap_feature.html')
 def bootstrap_contact(request):
     return render_to_response('bootstrap_contact.html')
 
