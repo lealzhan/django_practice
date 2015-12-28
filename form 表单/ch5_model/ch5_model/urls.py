@@ -28,6 +28,7 @@ from books.views import bootstrap_contact
 from books.views import form
 from books.views import add
 from books.views import index
+from books.views import display_meta
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),
@@ -44,4 +45,5 @@ urlpatterns = [
                url(r'^form/', form),
                url(r'^add/', add),
                url(r'^index/', index),
+               url(r'^display_meta/', display_meta),
 ]

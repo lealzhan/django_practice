@@ -8,6 +8,9 @@ from books.models import DatabaseTest
 def books_hello(request):
     html = "books hello"
     DatabaseTest.objects.all().delete()
+    html = request.get_host()
+    html = request.get_full_path()
+    html = request.is_secure()
     return HttpResponse(html)
 
 
@@ -92,21 +95,38 @@ def add(request):
     b = int(b)
     return HttpResponse(str(a+b))
 
-# django way of way
+# django way of form
 from .forms import AddForm
 
 def index(request):
     if request.method == 'POST': # send in form
         form = AddForm(request.POST)
         if form.is_valid():
+            #fetch data from from
             a = form.cleaned_data['a']
             b = form.cleaned_data['b']
-            return HttpResponse(str(int(a)+int(b)))
+            c = form.cleaned_data['c']
+            d = form.cleaned_data['d']
+            #process data
+            result = int(a) + int(b)
+            result = str(result) + d
+            #return result
+            return HttpResponse(result)
 
-    else: # usual request
+    else: # usual request, which will return form
         form = AddForm()
     return render(request, 'index.html',{'form':form})
 
+
+#HttpRequest test
+#http://docs.30c.org/djangobook2/chapter07/
+def display_meta(request):
+    values = request.META.items()
+    values.sort()
+    html = []
+    for k, v in values:
+        html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
+    return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
 
 
