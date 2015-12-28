@@ -27,6 +27,7 @@ from books.views import bootstrap_feature
 from books.views import bootstrap_contact
 from books.views import form
 from books.views import add
+from books.views import index
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),
@@ -42,4 +43,5 @@ urlpatterns = [
                url(r'^bootstrap_contact/', bootstrap_contact),
                url(r'^form/', form),
                url(r'^add/', add),
+               url(r'^index/', index),
 ]

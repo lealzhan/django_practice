@@ -82,7 +82,7 @@ def bootstrap_contact(request):
     return render_to_response('bootstrap_contact.html')
 
 
-
+# old way of form
 def form(request):
     return render_to_response('form.html')
 def add(request):
@@ -91,5 +91,23 @@ def add(request):
     a = int(a)
     b = int(b)
     return HttpResponse(str(a+b))
+
+# django way of way
+from .forms import AddForm
+
+def index(request):
+    if request.method == 'POST': # send in form
+        form = AddForm(request.POST)
+        if form.is_valid():
+            a = form.cleaned_data['a']
+            b = form.cleaned_data['b']
+            return HttpResponse(str(int(a)+int(b)))
+
+    else: # usual request
+        form = AddForm()
+    return render(request, 'index.html',{'form':form})
+
+
+
 
 
