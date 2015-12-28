@@ -82,6 +82,7 @@ def bootstrap_contact(request):
     return render_to_response('bootstrap_contact.html')
 
 
+
 def form(request):
     return render_to_response('form.html')
 def add(request):
