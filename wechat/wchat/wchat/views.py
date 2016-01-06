@@ -35,3 +35,4 @@ def weixin_main(request):
         request_xml = etree.fromstring(xml_str)
         response_xml = auto_reply_main(request_xml)# 修改这里
         return HttpResponse(response_xml)
+ No newline at end of file
