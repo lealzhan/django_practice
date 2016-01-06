@@ -5,12 +5,13 @@ from lxml import etree
 from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from auto_reply.views import auto_reply_main # 修改这里
+# from auto_reply.views import auto_reply_main # 修改这里
 
 WEIXIN_TOKEN = 'write-a-value'
 
 @csrf_exempt
 def weixin_main(request):
+    return HttpResponse("weixin  POST")
     """
     所有的消息都会先进入这个函数进行处理，函数包含两个功能，
     微信接入验证是GET方法，
@@ -31,8 +32,8 @@ def weixin_main(request):
         else:
             return HttpResponse("weixin  index")
     else:
-    xml_str = smart_str(request.body)
+        xml_str = smart_str(request.body)
         request_xml = etree.fromstring(xml_str)
-        response_xml = auto_reply_main(request_xml)# 修改这里
-        return HttpResponse(response_xml)
- No newline at end of file
+        # response_xml = auto_reply_main(request_xml)# 修改这里
+        # return HttpResponse(response_xml)
+        return HttpResponse("weixin  POST")
