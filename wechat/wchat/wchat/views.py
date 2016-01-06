@@ -7,11 +7,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 # from auto_reply.views import auto_reply_main # 修改这里
 
-WEIXIN_TOKEN = 'write-a-value'
+WEIXIN_TOKEN = 'lingzhan'
 
 @csrf_exempt
 def weixin_main(request):
-    return HttpResponse("weixin  POST")
+    # return HttpResponse("weixin  POST")
     """
     所有的消息都会先进入这个函数进行处理，函数包含两个功能，
     微信接入验证是GET方法，
