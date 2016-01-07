@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from __future__ import unicode_literals  #使用Python 3.x的新的字符串的表示方法
  
 from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
@@ -8,9 +8,10 @@ from wechat_sdk import WechatBasic
 from wechat_sdk.exceptions import ParseError
 from wechat_sdk.messages import TextMessage
  
- 
-WECHAT_TOKEN = 'lingzhan'
-AppID = 'wx7b307181ef0ec54a'
+
+#和微信控制台保持一致
+WECHAT_TOKEN = 'lingzhan'       
+AppID = 'wx7b307181ef0ec54a'    
 AppSecret = 'd7c3069f674a12c86e4c19ced0f17b49'
  
 # 实例化 WechatBasic
@@ -23,39 +24,45 @@ wechat_instance = WechatBasic(
 @csrf_exempt
 def weixin_main(request):
     # return HttpResponse("TEST")
+# 0. 检验合法性
     if request.method == 'GET':
-        # 检验合法性
         # 从 request 中提取基本信息 (signature, timestamp, nonce, xml)
         signature = request.GET.get('signature')
         timestamp = request.GET.get('timestamp')
         nonce = request.GET.get('nonce')
  
+        #验证失败
         if not wechat_instance.check_signature(
                 signature=signature, timestamp=timestamp, nonce=nonce):
             return HttpResponseBadRequest('Verify Failed')
- 
+        #验证成功
         return HttpResponse(
-            request.GET.get('echostr', ''), content_type="text/plain")
+            request.GET.get('echostr', ''), content_type="text/plain")  ####?
  
- 
-    # 解析本次请求的 XML 数据
+# 1. 对话
+    # 获取request内容 （用户输入了啥）
+    #             parse_data                get_message()                message.content.strip()
+    #request.body（xml） ---------> wechat_instance --------->  message  ----------------------> content @ line65 '功能‘ ’教程‘
+    # 1.0 解析本次请求的 XML 数据
     try:
         wechat_instance.parse_data(data=request.body)
     except ParseError:
         return HttpResponseBadRequest('Invalid XML Data')
  
-    # 获取解析好的微信请求信息
-    message = wechat_instance.get_message()
+    # 1.1 获取解析好的微信请求信息
+    message = wechat_instance.get_message()    # message对应微信客户端发送的xml，包含ToUserName，FromUserName，CreateTime，MsgType，Content，MsgId
+                                               # http://wechat-python-sdk.readthedocs.org/zh_CN/master/messages.html
  
-    # 关注事件以及不匹配时的默认回复
+    # 1.2 关注事件以及不匹配时的默认回复
     response = wechat_instance.response_text(
         content = (
             '感谢您的关注！\n回复【功能】两个字查看支持的功能，还可以回复任意内容开始聊天'
             '\n【<a href="http://www.ziqiangxuetang.com">自强学堂手机版</a>】'
             ))
-    if isinstance(message, TextMessage):
+    # 1.3 正常回复
+    if isinstance(message, TextMessage):    #如果实例message是TextMessage类的话
         # 当前会话内容
-        content = message.content.strip()
+        content = message.content.strip()     #strip() 去掉文本中开头与结尾的符号，比如空格和\n
         if content == '功能':
             reply_text = (
                     '目前支持的功能：\n1. 关键词后面加上【教程】两个字可以搜索教程，'
