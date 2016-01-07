@@ -76,6 +76,11 @@ def weixin_main(request):
  
         response = wechat_instance.response_text(content=reply_text)
  
+    elif isinstance(message, ImageMessage):    #如果实例message是ImageMessage类的话
+        reply_text = 'you have send a pic'
+        #reply_text = message.picurl
+        response = wechat_instance.response_text(content=reply_text)
+
     return HttpResponse(response, content_type="application/xml")
 
 
